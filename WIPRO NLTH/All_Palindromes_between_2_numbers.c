@@ -6,13 +6,13 @@ void palindrome(int a, int b){
         i=j;
         rev=0;
 
-        while(j){
-            rev= rev*10 + j%10;
-            j=j/10;
+        while(i){
+            rev= rev*10 + i%10;
+            i=i/10;
         }
         
-        if(i==rev)
-            printf("%d\n",i);
+        if(j==rev)
+            printf("%d\n",j);
     }
 }
 
