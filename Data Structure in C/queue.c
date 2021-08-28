@@ -1,10 +1,9 @@
 #include<stdio.h>
 #include<limits.h>
 
-#define SIZE 5;
+#define SIZE 5
 int queue[SIZE];
-int front,rear;
-front = rear=-1;
+int front=-1,rear=-1;
 void enqueue(int val){
     if(rear==SIZE-1){
         printf("queue overflow");
@@ -64,6 +63,8 @@ int main(){
     enqueue(10);
     enqueue(20);
     enqueue(30);
+    display();
     reverse();
+    display();
     return 0;
 }

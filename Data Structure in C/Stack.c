@@ -71,7 +71,7 @@ int main(){
         printf("%d\t",peek());
         push(i);
     }
-    
+     
     display();
     
     for(int i=1;i<=6;i++)

@@ -73,7 +73,7 @@ int main(){
     int n,k=1;
     char dir='r';
     int *arr;
-    scanf("%d",&n);//check whether it is perfect square or not
+    scanf("%d",&n);//16, 4*4 matrix
     int sqr=sqrt(n);
     if((int)sqr != sqr){
         printf("INVALID INPUT");
@@ -86,3 +86,10 @@ int main(){
     print_spiral(arr,n);
     return 0;
 }
+/*
+int *array= (int *)malloc(rows*cols*sizeof(int));
+
+Acces array[i][j]:
+*(array + i*cols +j)
+
+*/
