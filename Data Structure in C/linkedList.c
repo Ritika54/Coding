@@ -47,6 +47,10 @@ void search(int key){
         index++;
         temp=temp->next;
     }
+    if(count == 0){
+        printf("Element not found");
+        return;
+    }
     printf("Frequency of %d is %d\n",key,count);
 }
 
@@ -74,6 +78,32 @@ void insertAtEnd(int key){
     //printf("data : %d address : %p\n",temp->data,temp->next);    
 }
 
+void delete(int key){
+    if(first==NULL){
+        printf("linked list is empty");
+        return;
+    }
+    struct node *temp=first,*prev=first;;
+    if(key==first->data){
+        first=first->next;
+        free(temp);
+        return;
+    }
+    while(temp->data!=key){
+            prev=temp;
+            temp=temp->next;
+            if(temp->next==NULL && temp->data!=key){
+                printf("Element not found");
+                break;
+            }
+    }
+    if(temp->data==key){
+        prev->next=temp->next;
+        free(temp);
+        return;
+    }
+}
+
 int main()
 {
     int n,key;
@@ -95,7 +125,10 @@ int main()
                     
             case 2: display();
                     break;
-            case 3:break;
+            case 3: printf("Enter a value ");
+                    scanf("%d",&key);
+                    delete(key);
+                    break;
             case 4: printf("Enter a value ");
                     scanf("%d",&key);
                     search(key);
