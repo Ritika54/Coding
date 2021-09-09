@@ -83,12 +83,27 @@ void delete(int key){
         printf("linked list is empty");
         return;
     }
-    struct node *temp=first,*prev=first;;
+    struct node *temp=first,*prev=first;
     if(key==first->data){
         first=first->next;
         free(temp);
         return;
     }
+    /*
+    struct node *prev=first;
+    strct node *temp=first->next;
+    while(temp!=NULL){
+        if(temp->data == key){
+            prev->next=temp->next;
+            free(temp);
+            printf("%d found and deleted",key);
+            return;
+        }
+        temp=temp->next;
+        prev=prev->next;
+    }
+    printf("Element not found");
+    */
     while(temp->data!=key){
             prev=temp;
             temp=temp->next;
@@ -103,7 +118,50 @@ void delete(int key){
         return;
     }
 }
+//|data|address of next|(it's own address)
+//|10|200|(100) -> |20|300|(200) -> |30|400|(300) -> |40|NULL|(400)
+//first=100
+void reverse(){
+    if(first==NULL){
+        printf("Linked List is empty");
+        return;
+    }
+    if(first->next==NULL){//only one element
+        return;
+    }
+    //more than one element
+    struct node *prev=NULL,*ahead=first->next;//ahead=200
+    while(ahead!=NULL){//ahead=200,300,400,NULL(out of loop)
+        first->next=prev;//first=100/200/300,first->next(earlier)=200/300/400,prev=NULL/100/200,first->next(after assignment)=prev
+        prev=first;//prev=100/200/300
+        first=ahead;//first=200/300/400
+        ahead=ahead->next;//ahead=300/400/NULL
+    }
+    first->next=prev;//first=400,first->next(earlier)=NULL,prev=300
+}
 
+//Finding loop using Flyod's cycle detection algorithm
+//|data|address of next|(it's own address)
+//|10|200|(100) -> |20|300|(200) -> |30|400|(300) -> |40|500|(400)
+//                              \                    /
+//                                   |50|200|(500)                        
+//first=100
+void findLoop(){
+    if(first==NULL){
+        printf("Linked List is empty");
+        return;
+    }
+    struct node *slow=first,*fast=first;//slow=100,fast=100
+    while(slow->next!=NULL && fast->next!=NULL && fast->next->next!=NULL){
+        slow=slow->next;//slow->next=200/300/400/500
+        fast=fast->next->next;//fast->next->next=300/500/300/500
+        if(slow==fast){//500==500
+            printf("LOOP FOUND");
+            return;
+        }
+    }
+    printf("Loop Not Found");
+}
 int main()
 {
     int n,key;
@@ -133,8 +191,10 @@ int main()
                     scanf("%d",&key);
                     search(key);
                     break;
-            case 5:break;
-            case 6:break;
+            case 5: reverse();
+                    break;
+            case 6: findLoop();
+                    break;
             case 7: printf("Enter a value ");
                     scanf("%d",&key);
                     insertAtEnd(key);
