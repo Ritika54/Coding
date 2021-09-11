@@ -5,16 +5,39 @@ struct node{
     struct node *next;
 }*first=NULL;
 
-void insertAtBegin(int key){
-    struct node *temp;
-    temp =(struct node*)malloc(sizeof(struct node));
-    if(temp==NULL){
+//|data|address of next|(it's own address)
+//|10|200|(100) -> |20|300|(200) 
+//    \                    /
+//        |30|100|(300)                                                   
+//first=100
+//here we want to insert at first
+//|data|address of next|(it's own address)
+//|40|100|(400) -> |10|200|(100) -> |20|300|(200) 
+//    \                          /
+//        |30|400|(300)                                                   
+//first=400
+
+void insertAtBegin(int key){//40
+    struct node *new;
+    new =(struct node*)malloc(sizeof(struct node));//400
+    if(new==NULL){
         printf("Memory cannot be allocated");
         return;
     }
-    temp->data=key;
-    temp->next=first;
-    first=temp;
+    new->data=key;//40
+    if(first==NULL){
+        first=new;
+        new->next=first;
+        return;
+    }
+    //we need to find last element, since we are inserting at first so last->next needs to changed to this first
+    struct node *last=first;//100
+    while(last->next!=first){//last->next=200/300/100(out of loop)
+        last=last->next;//200/300
+    }
+    new->next=first;//100
+    fisrt=new;//400
+    last->next=new;//400
 }
 
 void display(){
@@ -28,7 +51,7 @@ void display(){
     do{
         printf("%d\t",temp->data);
         temp=temp->next;
-    }while(temp!=NULL);
+    }while(temp!=first);
 }
 
 void search(int key){
@@ -39,7 +62,7 @@ void search(int key){
     }
     int index=1, count=0;
     struct node *temp=first;
-    while(temp!=NULL){
+    while(temp->next!=first){
         if(temp->data == key){
             printf("Position of %d is %d\n",key,index);
             count++;
@@ -53,6 +76,11 @@ void search(int key){
     }
     printf("Frequency of %d is %d\n",key,count);
 }
+//|data|address of next|(it's own address)
+//|10|200|(100) -> |20|300|(200) -> |30|400|(300)
+//    \                             /
+//             |40|100|(400)                                                   
+//first=100
 
 void insertAtEnd(int key){
     //first create a newNode 
@@ -61,21 +89,17 @@ void insertAtEnd(int key){
     newNode->data=key;
     //if Linked List is empty
     if(first==NULL){
-        newNode->next=NULL;
+        newNode->next=newNode;
         first=newNode;
         return;
     }
     //if there is atleast one element
-    struct node *temp=first;
-    while(temp->next!=NULL){
-        //printf("data : %d address : %p\n",temp->data,temp->next);
-        temp=temp->next;
+    struct node *last=first;//100
+    while(last->next!=first){//last->next=200/300/100(out of loop)
+        last=last->next;//last(after assignment)=200/300
     }
-    temp->next=newNode;
-    //printf("data : %d address : %p\n",temp->data,temp->next);
-
-    newNode->next=NULL;
-    //printf("data : %d address : %p\n",temp->data,temp->next);    
+    temp->next=newNode;//400
+    newNode->next=first;//100
 }
 
 void delete(int key){
@@ -118,50 +142,7 @@ void delete(int key){
         return;
     }
 }
-//|data|address of next|(it's own address)
-//|10|200|(100) -> |20|300|(200) -> |30|400|(300) -> |40|NULL|(400)
-//first=100
-void reverse(){
-    if(first==NULL){
-        printf("Linked List is empty");
-        return;
-    }
-    if(first->next==NULL){//only one element
-        return;
-    }
-    //more than one element
-    struct node *prev=NULL,*ahead=first->next;//ahead=200
-    while(ahead!=NULL){//ahead=200,300,400,NULL(out of loop)
-        first->next=prev;//first=100/200/300,first->next(earlier)=200/300/400,prev=NULL/100/200,first->next(after assignment)=prev
-        prev=first;//prev=100/200/300
-        first=ahead;//first=200/300/400
-        ahead=ahead->next;//ahead=300/400/NULL
-    }
-    first->next=prev;//first=400,first->next(earlier)=NULL,prev=300
-}
 
-//Finding loop using Flyod's cycle detection algorithm
-//|data|address of next|(it's own address)
-//|10|200|(100) -> |20|300|(200) -> |30|400|(300) -> |40|500|(400)
-//                              \                    /
-//                                   |50|200|(500)                        
-//first=100
-void findLoop(){
-    if(first==NULL){
-        printf("Linked List is empty");
-        return;
-    }
-    struct node *slow=first,*fast=first;//slow=100,fast=100
-    while(slow->next!=NULL && fast->next!=NULL && fast->next->next!=NULL){
-        slow=slow->next;//slow->next=200/300/400/500
-        fast=fast->next->next;//fast->next->next=300/500/300/500
-        if(slow==fast){//500==500
-            printf("LOOP FOUND");
-            return;
-        }
-    }
-    printf("Loop Not Found");
-}
 int main()
 {
     int n,key;
@@ -170,8 +151,6 @@ int main()
         printf("Press 2 to display Linked List\n");
         printf("Press 3 to delete element from Linked List\n");
         printf("Press 4 to search for element in Linked List\n");
-        printf("Press 5 to reverse Linked List\n");
-        printf("Press 6 to find loop within linked list\n");
         printf("Press 7 to insert as last element in linked list\n");
         printf("Press any other key to exit\n");
         scanf("%d",&n);
@@ -190,10 +169,6 @@ int main()
             case 4: printf("Enter a value ");
                     scanf("%d",&key);
                     search(key);
-                    break;
-            case 5: reverse();
-                    break;
-            case 6: findLoop();
                     break;
             case 7: printf("Enter a value ");
                     scanf("%d",&key);
