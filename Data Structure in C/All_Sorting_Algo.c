@@ -89,6 +89,43 @@ int quickSort(int arr[],int low,int high){
 //     quickSort(arr,pivot+1,h);
 // }
 
+int merge(int arr[],int low,int mid,int high){
+    int n1=mid-low+1;
+    int n2=high-mid;
+    int i=0,j=0,k=0;
+    int *a1,*a2;
+    a1=(int *)malloc(sizeof(int)*n1);
+    a2=(int *)malloc(sizeof(int)*n2);
+    for(i=0;i<n1;i++){
+        a1[i]=arr[low+i];
+    }
+    for(j=0;j<n2;j++){
+        a2[j]=arr[mid+1+j];
+    }
+    i=0;j=0;k=low;
+    while(i<n1 && j<n2){
+        if(a1[i]<a[j])
+            arr[k++]=a1[i++];
+        else
+            arr[k++]=a2[j++];
+    }
+    while(i<n1){
+        arr[k++]=a1[i++];
+    }
+    while(j<n2){
+        arr[k++]=a2[j++];
+    }
+}
+
+int mergeSort(int arr[],int low,int high){
+    if(low<high){
+        int mid=(low+high)/2;
+        mergeSort(arr,low,mid);
+        mergeSort(arr,mid+1,high);
+        merge(arr,low,mid,high);
+    }
+}
+
 int main(){
     int n;
     int *arr;
