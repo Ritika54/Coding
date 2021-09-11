@@ -6,6 +6,11 @@ void swap(int *a,int *b){
 	*a=*b;
 	*b=*temp;
 }
+//Stable Algorithm = Order of elements which have same value will not change after sorting
+//Inplce Algorithm = You are not using extra space equal to or more than the size of array while sorting
+//BUBBLE SORT(Stable,Inplace)
+//Best case=O(n)
+//Avg/Worst=O(n^2)
 void bubbleSort(int arr[],int n){
     for(int i=0;i<=n-1;i++){
         int swapped=0;
@@ -19,6 +24,9 @@ void bubbleSort(int arr[],int n){
             break;
     }
 }
+
+//SELECTION SORT(Stable,Inplace)
+//Best/Avg/Worst case=O(n^2)
 void selectionSort(int arr[],int n){
     for(int i=0;i<n;i++){
         int minIndex=i;
@@ -31,6 +39,9 @@ void selectionSort(int arr[],int n){
     }
 }
 
+//INSERTION SORT(Stable,Inplace)
+//Best = O(n)
+//Avg/Worst = O(n^2)
 void insertionSort(int arr[],int n){
 	int key,j;
 	for(int i=1;i<=n-1;i++){
@@ -44,6 +55,9 @@ void insertionSort(int arr[],int n){
 	}
 }
 
+//QUICK SORT(Not Stable,Inplace)
+//Best/Avg case=O(nlogn)
+//Worst= O(n^2)
 int partition(int arr[],int low,int high){
     int pivot=low;
     while (low<high){
@@ -89,6 +103,9 @@ int quickSort(int arr[],int low,int high){
 //     quickSort(arr,pivot+1,h);
 // }
 
+//MERGE SORT(Stable,Not Inplace)
+//Best case=O(nlogn)
+//Worst/Avg = O(nlogn)
 int merge(int arr[],int low,int mid,int high){
     int n1=mid-low+1;
     int n2=high-mid;
@@ -125,6 +142,14 @@ int mergeSort(int arr[],int low,int high){
         merge(arr,low,mid,high);
     }
 }
+
+//TIM SORT
+//BEST case = O(n)
+//Worst/Avg = O(nlogn)
+void timSort(int arr,int n){
+
+}
+
 
 int main(){
     int n;
