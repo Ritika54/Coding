@@ -5,7 +5,6 @@
 1 2           B A
 1               A
 */
-
 #include<stdio.h>
 
 int main(){
@@ -14,9 +13,9 @@ int main(){
     int cols;
     scanf("%d",&n);
     cols=2*n - 1;
-    int skipn=5,skipc=5;
+    int skipn=n,skipc=n;
     for(int i=1;i<=n;i++){
-        char z='D';
+        char z=65+n-2;
         for(int j=1;j<=cols;j++){
             if(j<=n){
                 if(j<=skipn){
@@ -39,6 +38,7 @@ int main(){
         printf("\n");
         skipn--;
         skipc++;
-    }    
+    }
+    
     return 0;
 }
