@@ -33,11 +33,11 @@ int main(){
     scanf("%d",&n);
     if(n%2==0){
         n=n/2;//No need to do this if we use statement written in comment
-        Tn=3*pow(3,n-1);//Tn=pow(3,n/2)
+        Tn=3*pow(3,n-1);//Tn=(int)pow(3,n/2)
     }
     else{
         n=(n+1)/2;//No need to do if we use 2nd statement written in comment 
-        Tn=3+(n-1)*3;//Tn=n*3 or Tn=(3*n-3)/2
+        Tn=3+(n-1)*3;//Tn=n*3 or Tn=(int)(3*n-3)/2
     }
     printf("%d",Tn);
     return 0;
