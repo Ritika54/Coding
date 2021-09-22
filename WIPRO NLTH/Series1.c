@@ -29,15 +29,15 @@ here we can deduce that if we are given any
 #include<math.h>
 int main(){
     int n;
-    int Tn,d=3,r=3;
+    int Tn;
     scanf("%d",&n);
     if(n%2==0){
         n=n/2;
-        Tn=3*pow(r,n-1);
+        Tn=3*pow(3,n-1);//Tn=pow(3,n/2)
     }
     else{
         n=(n+1)/2;
-        Tn=3+(n-1)*d;
+        Tn=3+(n-1)*3;//Tn=n*3
     }
     printf("%d",Tn);
     return 0;
