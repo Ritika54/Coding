@@ -14,16 +14,19 @@ int prime(int n){
     }
     return 1;
 }
-int main(){
-    int n;
+int nthPrime(int n){
     int i=1;
-    scanf("%d",&n);
     while(n!=0){
         i++;
         if(prime(i)){
             n--;
         }
     }
-    printf("%d",i);
+    return i;
+}
+int main(){
+    int n;
+    scanf("%d",&n);
+    printf("%d",nthPrime(n));
     return 0;
 }
